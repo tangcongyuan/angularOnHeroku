@@ -3,28 +3,27 @@
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" ui-sref="home">Eric's Angular App</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="home">Eric's Angular App</a>
     </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li ui-sref-active="active"><a ui-sref="portfolio">Portfolio</a></li>
-        <li ui-sref-active="active"><a ui-sref="contact">Contact</a></li>
-        <li ui-sref-active="active"><a ui-sref="about">About</a></li>
+        <li ui-sref-active="active"><a ui-sref="portfolio" data-toggle="collapse" data-target=".navbar-collapse.in">Portfolio</a></li>
+        <li ui-sref-active="active"><a ui-sref="contact" data-toggle="collapse" data-target=".navbar-collapse.in">Contact</a></li>
+        <li ui-sref-active="active"><a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in">About</a></li>
       </ul>
       <div class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a ui-sref="login">Sign In</a></li>
-            <li><a ui-sref="signup">Sign Up</a></li>
+            <li><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in">Sign In</a></li>
+            <li><a ui-sref="signup" data-toggle="collapse" data-target=".navbar-collapse.in">Sign Up</a></li>
             <li role="separator" class="divider"></li>
-            <li><a ui-sref="home">Sign Out</a></li>
+            <li><a ui-sref="home" data-toggle="collapse" data-target=".navbar-collapse.in">Sign Out</a></li>
           </ul>
         </li>
       </div>

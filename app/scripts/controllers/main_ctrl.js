@@ -9,6 +9,9 @@
   // its own namespace, $scope.main, according to index.html file.
   function MainCtrl(user, auth){
     var vm = this;
-    user.getAccounts().then(function (res) { console.log(res); });
+    user.getAccounts().then(function (res) {
+      console.log("You're seeing this because Eric is displaying all the accounts in the backend server.");
+      console.log(res);
+    });
   }
 })();
