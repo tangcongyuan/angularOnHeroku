@@ -70,8 +70,8 @@
 
   function userService($http, API, auth) {
     var vm = this;
-    vm.getAccounts = function() {
-      return $http.get(API + '/auth/accounts.json')
+    vm.getAPIs = function() {
+      return $http.get(API + '/auth/');
     };
 
     // add authentication methods here
@@ -108,8 +108,8 @@
       user.signup(vm.signupForm)
         .then(handleRequest, handleRequest);
     };
-    vm.getAccounts = function() {
-      user.getAccounts()
+    vm.getAPIs = function() {
+      user.getAPIs()
         .then(handleRequest, handleRequest);
     };
     vm.logout = function() {

@@ -1,5 +1,5 @@
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="AuthCtrl as auth">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -20,10 +20,11 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in">Sign In</a></li>
-            <li><a ui-sref="signup" data-toggle="collapse" data-target=".navbar-collapse.in">Sign Up</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a ui-sref="home" data-toggle="collapse" data-target=".navbar-collapse.in">Sign Out</a></li>
+            <li ng-if="!auth.isAuthed()"><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in">Sign In</a></li>
+            <li ng-if="!auth.isAuthed()"><a ui-sref="signup" data-toggle="collapse" data-target=".navbar-collapse.in">Sign Up</a></li>
+            <li ng-if="auth.isAuthed()"><a ui-sref="profile" data-toggle="collapse" data-target=".navbar-collapse.in">Profile</a></li>
+            <li ng-if="auth.isAuthed()" role="separator" class="divider"></li>
+            <li ng-if="auth.isAuthed()"><a ng-click="auth.logout()" data-toggle="collapse" data-target=".navbar-collapse.in">Sign Out</a></li>
           </ul>
         </li>
       </div>
