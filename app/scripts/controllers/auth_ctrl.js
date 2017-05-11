@@ -76,7 +76,7 @@
 
     // add authentication methods here
     vm.signup = function(form) {
-      return $http.post(API + '/auth/accounts/', { email: form.email, password: form.password });
+      return $http.post(API + '/auth/accounts/', { username: form.username, email: form.email, password: form.password, confirm_password: form.confirmPassword });
     };
 
     vm.login = function(form) {
@@ -87,10 +87,10 @@
   // When not injecting $scope, must use Controller As syntax. Because that way
   // Angular will treat LoginCtrl as construction function and LoginCtrl will have
   // its own namespace, $scope.login, according to index.html file.
-  function AuthCtrl(user, auth, $state){
+  function AuthCtrl(user, auth, $state, $timeout){
     var vm = this;
 
-    function handleRequest(res) {
+    function handleLoginRequest(res) {
       var token = res.data ? res.data.token : null;
       if(token) {
         console.log('JWT: ', token);
@@ -100,17 +100,25 @@
       if (res.data.non_field_errors) { vm.message = res.data.non_field_errors[0]; }
     }
 
+    function handleSignupRequest(res) {
+      console.log(res);
+      vm.message = res.data.message ? res.data.message : "";
+      if (res.data.username) {
+        $state.go('login');
+      }
+    }
+
     vm.login = function() {
       user.login(vm.loginForm)
-          .then(handleRequest, handleRequest);
+          .then(handleLoginRequest, handleLoginRequest);
     };
     vm.signup = function() {
       user.signup(vm.signupForm)
-        .then(handleRequest, handleRequest);
+          .then(handleSignupRequest, handleSignupRequest);
     };
     vm.getAPIs = function() {
       user.getAPIs()
-        .then(handleRequest, handleRequest);
+          .then(handleLoginRequest, handleLoginRequest);
     };
     vm.logout = function() {
       auth.logout && auth.logout();
