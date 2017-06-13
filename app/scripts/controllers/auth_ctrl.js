@@ -91,30 +91,54 @@
     var vm = this;
 
     function handleLoginRequest(res) {
+      console.log("handleLoginRequest: ");
+      console.log(res);
       var token = res.data ? res.data.token : null;
       if(token) {
         console.log('JWT: ', token);
         $state.go('home');
       }
-      vm.message = res.data.message;
+      // vm.message = res.data.message;
+      vm.message = res.data.message ? res.data.message : "";
+      if (res.data.non_field_errors) { vm.message = res.data.non_field_errors[0]; }
+    }
+
+    function handleFailedLoginRequest(res) {
+      console.log("handleFailedLoginRequest: ");
+      console.log(res);
+      vm.message = res.data.message ? res.data.message : "";
       if (res.data.non_field_errors) { vm.message = res.data.non_field_errors[0]; }
     }
 
     function handleSignupRequest(res) {
+      console.log("handleSignupRequest: ");
+      console.log(res);
+      vm.message = res.data.message ? res.data.message : "";
+      // if (res.data.username) {
+      //   $state.go('login');
+      // }
+      return res;
+    }
+
+    function handlePostSignupRequest(res) {
+      console.log("handlePostSignupRequest: ");
       console.log(res);
       vm.message = res.data.message ? res.data.message : "";
       if (res.data.username) {
-        $state.go('login');
+        user.login(res.data)
+            .then(handleLoginRequest, handleFailedLoginRequest);
       }
+      return res;
     }
 
     vm.login = function() {
       user.login(vm.loginForm)
-          .then(handleLoginRequest, handleLoginRequest);
+          .then(handleLoginRequest, handleFailedLoginRequest);
     };
     vm.signup = function() {
       user.signup(vm.signupForm)
-          .then(handleSignupRequest, handleSignupRequest);
+          .then(handleSignupRequest, handleSignupRequest)
+          .then(handlePostSignupRequest, handlePostSignupRequest);
     };
     vm.getAPIs = function() {
       user.getAPIs()

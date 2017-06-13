@@ -13,6 +13,10 @@
     user.getAPIs().then(function (res) {
       console.log("If you have problem viewing following content, please try to login first.");
       console.log(res);
+    },
+    function (res) {
+      console.log("If you have problem viewing following content, please try to login first.");
+      console.log(res);
     });
   }
 })();
